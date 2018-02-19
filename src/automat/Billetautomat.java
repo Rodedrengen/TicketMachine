@@ -1,8 +1,15 @@
 package automat;
+
+import java.util.Date;
+import java.util.ArrayList;
+
 /**
  * Model af en simpel billetautomat til enkeltbilletter med én fast pris.
  */
 public class Billetautomat {
+        
+        private ArrayList<String> logg = new ArrayList<String>();
+        Date date = new Date();
 	private int billetpris;    // Prisen for én billet.
 	private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
 	private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
@@ -15,6 +22,7 @@ public class Billetautomat {
 		billetpris = 10;
 		balance = 0;
 		antalBilletterSolgt = 0;
+                logg.add(new Date() + "a TicketMachine was created");
 	}
 
 	/**

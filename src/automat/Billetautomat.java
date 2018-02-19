@@ -22,7 +22,7 @@ public class Billetautomat {
 		billetpris = 10;
 		balance = 0;
 		antalBilletterSolgt = 0;
-                logg.add(new Date() + "a TicketMachine was created");
+                logg.add(new Date() + " a TicketMachine was created");
 	}
 
 	/**
@@ -30,6 +30,7 @@ public class Billetautomat {
 	 */
 	public int getBilletpris() {
 		int resultat = billetpris;
+                //logg.add(new Date() + "a request for Ticketprice was made");
 		return resultat;
 	}
 
@@ -42,12 +43,14 @@ public class Billetautomat {
                     System.out.println("Du har indkastet mindre end 0 kroner. Det kan man ikke");
                 }
 		balance = balance + beløb;
+                logg.add(new Date() + " " + beløb + " was put into the machine");
 	}
 
 	/**
 	 * Giver balancen (beløbet maskinen har modtaget til den næste billet).
 	 */
 	public int getBalance() {
+                //logg.add(new Date() + " a request for balance was made");
 		return balance;
 	}
 
@@ -73,13 +76,15 @@ public class Billetautomat {
 
 		antalBilletterSolgt = antalBilletterSolgt + 1;
 		balance = balance - billetpris; // Billetter koster 10 kroner
+                logg.add(new Date() + " a tricket was printed");
 	}
 
 
 	public int returpenge() {
 		int returbeløb = balance;
-		balance = 0;
-		System.out.println("Du får "+returbeløb+" kr retur");
+		logg.add(new Date() + " "+ balance + " was returned");
+                balance = 0;
+		//System.out.println("Du får "+returbeløb+" kr retur"); //Is this even needed, we're allready printing in the main(); 
 		return returbeløb;
 	}
 
@@ -89,17 +94,21 @@ public class Billetautomat {
 			montørtilstand = true;
 			System.out.println("Montørtilstand aktiveret");
 			System.out.println("Du kan nu angive billetpris");
+                        logg.add(new Date() + " an admin logged on");
 		} else {
 			montørtilstand = false;
 			System.out.println("Montørtilstand deaktiveret");
+                        logg.add(new Date() + " an admin failed to logon");
 		}
 	}
 
 
 	public int getTotal() {
 		if (montørtilstand) {
+                        logg.add(new Date() + " a request for earning was succesfull");
 			return billetpris * antalBilletterSolgt;
 		} else {
+                        logg.add(new Date() + " a equest for earning failed");
 			System.out.println("Afvist - log ind først");
 			return 0;
 		}
@@ -107,29 +116,41 @@ public class Billetautomat {
 
 	public int getAntalBilletterSolgt() {
 		if (montørtilstand) {
+                        logg.add(new Date() + " a request for amount of tickets sold was succesfull");
 			return antalBilletterSolgt;
 		} else {
+                        logg.add(new Date() + " a request for amount of tickets sold failed");
 			System.out.println("Afvist - log ind først");
 			return 0;
 		}
 	}
 
 	public void setBilletpris(int billetpris) {
-		this.billetpris = billetpris;
+                if(montørtilstand){
+                    logg.add(new Date() + " an atempt to change the tickeprice was succesfull");
+                    this.billetpris = billetpris;
+                }else{
+                    logg.add(new Date() + " a request to change the ticketprice failed");
+                    System.out.println("Afvist - log ind først");
+                }
+		
 	}
-
 	public void nulstil() {
 		if (montørtilstand) {
+                        logg.add(new Date() + " a request to reset the machine was succesfull");
 			antalBilletterSolgt = 0;
 		} else {
+                        logg.add(new Date() + " a request to reset the machine failed");
 			System.out.println("Afvist - log ind først");
 		}
 	}
 
 	public void setAntalBilletterSolgt(int antalBilletterSolgt) {
 		if (montørtilstand) {
+                        logg.add(new Date() + " an atempt to the amount of tickets sold was succesfull");
 			this.antalBilletterSolgt = antalBilletterSolgt;
 		} else {
+                        logg.add(new Date() + " an atempt to the amount of tickets sold failed");
 			System.out.println("Afvist - log ind først");
 		}
 	}
@@ -137,4 +158,15 @@ public class Billetautomat {
 	public boolean erMontør() {
 		return montørtilstand;
 	}
+        public void printeLog() {
+        if (montørtilstand) {
+            System.out.print("========== log pr " + new Date());
+            for (String log : logg) {
+                System.out.println(log);
+            }
+            System.out.println("==========");
+        } else {
+            System.out.println("Afvist - log ind først");
+        }
+    }
 }

@@ -27,45 +27,51 @@ public class BenytBilletautomat
 				System.out.println("Tast 12 for at nulstille (montør)");
 				System.out.println("Tast 13 for at sætte billetpris (montør)");
 				System.out.println("Tast 14 for at logge ud af montørtilstand");
+                                System.out.println("Press 15 for print log");
 			}
 			int valg = tastatur.nextInt();
 			tastatur.nextLine();
 		
-			if (valg==1) {
-				System.out.print("Skriv beløb: ");
-				int beløb = tastatur.nextInt();
-				automat.indsætPenge(beløb);
-			}
-			else if (valg==2) {
-				automat.udskrivBillet();
-			}
-			else if (valg==3) {
-				int beløb = automat.returpenge();
-				System.out.println("Du fik "+beløb+" retur retur");
-			}
-			else if (valg==10) {
-				System.out.print("Skriv kode: ");
-				String kode = tastatur.next();
-				automat.montørLogin(kode);
-			}
-			else if (valg==11) {
-				System.out.println("Antal billetter solgt: " + automat.getAntalBilletterSolgt());
-				System.out.println("Total indkomst: " + automat.getTotal()+" kr");
-			}
-			else if (valg==12) {
-				automat.nulstil();
-			}
-			else if (valg==13) {
-				System.out.print("Skriv beløb: ");
-				int beløb = tastatur.nextInt();
-				automat.setBilletpris(beløb);
-			}
-			else if (valg==14) {
-				automat.montørLogin("");;
-			}
-			else {
-				System.out.println("Ugyldigt valg, prøv igen");
-			}
+                    switch (valg) {
+                        case 1:
+                                System.out.print("Skriv beløb: ");
+                                int inputAmount = tastatur.nextInt();
+                                automat.indsætPenge(inputAmount);
+                                break;
+                        case 2:
+                            automat.udskrivBillet();
+                            break;
+                        case 3:
+                                int returnAmount = automat.returpenge();
+                                System.out.println("Du fik "+returnAmount+" retur retur");
+                                break;
+                        case 10:
+                            System.out.print("Skriv kode: ");
+                            String kode = tastatur.next();
+                            automat.montørLogin(kode);
+                            break;
+                        case 11:
+                            System.out.println("Antal billetter solgt: " + automat.getAntalBilletterSolgt());
+                            System.out.println("Total indkomst: " + automat.getTotal()+" kr");
+                            break;
+                        case 12:
+                            automat.nulstil();
+                            break;
+                        case 13:
+                                System.out.print("Skriv beløb: ");
+                                int aTicketPrice = tastatur.nextInt();
+                                automat.setBilletpris(aTicketPrice);
+                                break;
+                        case 14:
+                            automat.montørLogin("");
+                            break;
+                        case 15:
+                            automat.printeLog();
+                            break;
+                        default:
+                            System.out.println("Ugyldigt valg, prøv igen");
+                            break;
+                    }
 		}
 	}
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Billetautomat {
         
         private ArrayList<String> logg = new ArrayList<String>();
+        private ArrayList<Transactions> Trans = new ArrayList<Transactions>(); 
         Date date = new Date();
 	private int billetpris;    // Prisen for én billet.
 	private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
@@ -25,10 +26,9 @@ public class Billetautomat {
 	public Billetautomat() {
 		billetpris = 10;
 		balance = 0;
-		antalBilletterSolgt = 0;
+		antalBilletterSolgt = 0; 
+                Trans.add(new Transactions("Hello","Hello",10));
                 logg.add(new Date() + " a TicketMachine was created");
-                
-                 
 	}
 
 	/**
@@ -168,6 +168,10 @@ public class Billetautomat {
 		return montørtilstand;
 	}
         public void printeLog() { 
+            for (Transactions log : Trans){
+                System.out.println(log);
+            }
+            /*
             if (montørtilstand) {
                 System.out.print("========== log pr " + new Date() + "\n" );
                 for (String log : logg) {
@@ -177,7 +181,7 @@ public class Billetautomat {
             } else {
                 System.out.println("Afvist - log ind først");
             }
-    }
+*/    }
         public void savelog(){
             
             if(montørtilstand){

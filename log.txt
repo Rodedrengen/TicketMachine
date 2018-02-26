@@ -1,0 +1,6 @@
+========== log pr Mon Feb 26 14:39:19 CET 2018
+
+Mon Feb 26 14:37:56 CET 2018 a TicketMachine was created
+Mon Feb 26 14:38:04 CET 2018 150 was put into the machine
+Mon Feb 26 14:38:08 CET 2018 an admin logged on
+Mon Feb 26 14:38:33 CET 2018 150 was put into the machine

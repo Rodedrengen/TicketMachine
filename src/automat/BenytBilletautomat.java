@@ -1,10 +1,10 @@
 package automat;
 
-
+import java.io.IOException;
 
 public class BenytBilletautomat
 {
-	public static void main(String[] arg)
+	public static void main(String[] arg) throws IOException
 	{
 		Billetautomat automat = new Billetautomat();
 		java.util.Scanner tastatur = new java.util.Scanner(System.in);  // forbered
@@ -28,6 +28,7 @@ public class BenytBilletautomat
 				System.out.println("Tast 13 for at sætte billetpris (montør)");
 				System.out.println("Tast 14 for at logge ud af montørtilstand");
                                 System.out.println("Press 15 for print log");
+                                System.out.println("Press 16 for saveing the log");
 			}
 			int valg = tastatur.nextInt();
 			tastatur.nextLine();
@@ -68,6 +69,9 @@ public class BenytBilletautomat
                         case 15:
                             automat.printeLog();
                             break;
+                        case 16:
+                            automat.savelog();
+                            break; 
                         default:
                             System.out.println("Ugyldigt valg, prøv igen");
                             break;

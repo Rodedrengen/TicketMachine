@@ -1,5 +1,8 @@
 package automat;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -14,19 +17,23 @@ public class Billetautomat {
 	private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
 	private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
 	private boolean montørtilstand;
-
 	/**
 	 * Opret en billetautomat der sælger billetter til 10 kr.
 	 */
+        
+        
 	public Billetautomat() {
 		billetpris = 10;
 		balance = 0;
 		antalBilletterSolgt = 0;
                 logg.add(new Date() + " a TicketMachine was created");
+                
+                 
 	}
 
 	/**
 	 * Giver prisen for en billet. 
+     * @return 
 	 */
 	public int getBilletpris() {
 		int resultat = billetpris;
@@ -36,6 +43,7 @@ public class Billetautomat {
 
 	/**
 	 * Modtag nogle penge (i kroner) fra en kunde.
+     * @param beløb
 	 */
 	public void indsætPenge(int beløb) {
                 if(beløb < 0){
@@ -48,6 +56,7 @@ public class Billetautomat {
 
 	/**
 	 * Giver balancen (beløbet maskinen har modtaget til den næste billet).
+     * @return 
 	 */
 	public int getBalance() {
                 //logg.add(new Date() + " a request for balance was made");
@@ -158,15 +167,38 @@ public class Billetautomat {
 	public boolean erMontør() {
 		return montørtilstand;
 	}
-        public void printeLog() {
-        if (montørtilstand) {
-            System.out.print("========== log pr " + new Date());
-            for (String log : logg) {
-                System.out.println(log);
+        public void printeLog() { 
+            if (montørtilstand) {
+                System.out.print("========== log pr " + new Date() + "\n" );
+                for (String log : logg) {
+                    System.out.println(log);
+                }
+                System.out.println("==========");
+            } else {
+                System.out.println("Afvist - log ind først");
             }
-            System.out.println("==========");
-        } else {
-            System.out.println("Afvist - log ind først");
-        }
     }
+        public void savelog(){
+            
+            if(montørtilstand){
+                    FileWriter fil = null;
+                    try {
+                        fil = new FileWriter("log.txt");
+                        
+                        PrintWriter file = new PrintWriter(fil);
+                        
+                        file.println("========== log pr " + new Date() + "\n");
+                        for (String var : logg){
+                            file.println(var);
+                            System.out.println(var);
+                        }
+
+                        file.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }else{
+                 System.out.println("Afvist - log ind først");
+                     }               
+            }               
 }

@@ -13,20 +13,37 @@ import java.util.Date;
  */
 public class Transactions {
     
-    private String dato; 
+    private Date dato; 
     private String action; 
-    private int amount; 
+    private int amount;
+    public static int amountOfTransactions; 
     
-    public Transactions(String d, String ac){
-        dato = d; 
+    public Transactions(String ac){
+        dato = new Date(); 
         action = ac; 
-        amount = 0; 
+        amount = 0;
+        amountOfTransactions++;
     }
     
-    public Transactions(String d, String ac, int a){
-        dato = d; 
+    public Transactions(String ac, int a){
+        dato = new Date(); 
         action = ac; 
         amount = a; 
+        amountOfTransactions++;
     }
-    
+    public String toString(){
+        if (amount > 0){
+            return dato + " " + action + " " + amount; 
+        }else{
+            return dato + " " + action; 
+        }
+    }
+    public Date getDate(){
+        Date date = dato;
+        return date;
+    }
+    public int getAmount(){
+        int a = amount;
+        return a; 
+    }
 }

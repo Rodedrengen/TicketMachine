@@ -8,27 +8,28 @@ import java.util.ArrayList;
 
 /**
  * Model af en simpel billetautomat til enkeltbilletter med én fast pris.
+ * Stuff todo:
+ *      Rememeber to add and delete Logs for every thing relevant --- x
+ *      Uniq ID for each action?                                  --- x
+ *      Do something smart about the 60.000 in printLogsFrom();   --- x
  */
 public class Billetautomat {
         
-        private ArrayList<String> logg = new ArrayList<String>();
+        //private ArrayList<String> logg = new ArrayList<String>();
         private ArrayList<Transactions> Trans = new ArrayList<Transactions>(); 
         Date date = new Date();
 	private int billetpris;    // Prisen for én billet.
 	private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
 	private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
 	private boolean montørtilstand;
-	/**
-	 * Opret en billetautomat der sælger billetter til 10 kr.
-	 */
         
         
 	public Billetautomat() {
 		billetpris = 10;
 		balance = 0;
 		antalBilletterSolgt = 0; 
-                Trans.add(new Transactions("Hello","Hello",10));
-                logg.add(new Date() + " a TicketMachine was created");
+                Trans.add(new Transactions("TicketMachine was created"));
+                //logg.add(new Date() + "TicketMachine was created");
 	}
 
 	/**
@@ -51,7 +52,8 @@ public class Billetautomat {
                     System.out.println("Du har indkastet mindre end 0 kroner. Det kan man ikke");
                 }
 		balance = balance + beløb;
-                logg.add(new Date() + " " + beløb + " was put into the machine");
+                Trans.add(new Transactions("Money was put into the machine",beløb));
+                //logg.add(new Date() + " " + beløb + " was put into the machine");
 	}
 
 	/**
@@ -85,13 +87,15 @@ public class Billetautomat {
 
 		antalBilletterSolgt = antalBilletterSolgt + 1;
 		balance = balance - billetpris; // Billetter koster 10 kroner
-                logg.add(new Date() + " a tricket was printed");
+                Trans.add(new Transactions("A ticket was printed to the price",billetpris));
+                //logg.add(new Date() + " a tricket was printed");
 	}
 
 
 	public int returpenge() {
 		int returbeløb = balance;
-		logg.add(new Date() + " "+ balance + " was returned");
+                Trans.add(new Transactions("An amount of money was returned",returbeløb));
+		//logg.add(new Date() + " "+ balance + " was returned");
                 balance = 0;
 		//System.out.println("Du får "+returbeløb+" kr retur"); //Is this even needed, we're allready printing in the main(); 
 		return returbeløb;
@@ -103,21 +107,25 @@ public class Billetautomat {
 			montørtilstand = true;
 			System.out.println("Montørtilstand aktiveret");
 			System.out.println("Du kan nu angive billetpris");
-                        logg.add(new Date() + " an admin logged on");
+                        Trans.add(new Transactions("An admin logged on"));
+                        //logg.add(new Date() + " an admin logged on");
 		} else {
 			montørtilstand = false;
 			System.out.println("Montørtilstand deaktiveret");
-                        logg.add(new Date() + " an admin failed to logon");
+                        Trans.add(new Transactions("An admin failed to logon"));
+                        //logg.add(new Date() + " an admin failed to logon");
 		}
 	}
 
 
 	public int getTotal() {
 		if (montørtilstand) {
-                        logg.add(new Date() + " a request for earning was succesfull");
+                        //logg.add(new Date() + " a request for earning was succesfull");
+                        Trans.add(new Transactions("A request for earning was succefull"));
 			return billetpris * antalBilletterSolgt;
 		} else {
-                        logg.add(new Date() + " a equest for earning failed");
+                        //logg.add(new Date() + " a equest for earning failed");
+                        Trans.add(new Transactions("A request for earnings failed"));
 			System.out.println("Afvist - log ind først");
 			return 0;
 		}
@@ -125,10 +133,10 @@ public class Billetautomat {
 
 	public int getAntalBilletterSolgt() {
 		if (montørtilstand) {
-                        logg.add(new Date() + " a request for amount of tickets sold was succesfull");
+                        //logg.add(new Date() + " a request for amount of tickets sold was succesfull");
 			return antalBilletterSolgt;
 		} else {
-                        logg.add(new Date() + " a request for amount of tickets sold failed");
+                        //logg.add(new Date() + " a request for amount of tickets sold failed");
 			System.out.println("Afvist - log ind først");
 			return 0;
 		}
@@ -136,30 +144,34 @@ public class Billetautomat {
 
 	public void setBilletpris(int billetpris) {
                 if(montørtilstand){
-                    logg.add(new Date() + " an atempt to change the tickeprice was succesfull");
+                    //logg.add(new Date() + " an atempt to change the tickeprice was succesfull");
                     this.billetpris = billetpris;
                 }else{
-                    logg.add(new Date() + " a request to change the ticketprice failed");
+                    //logg.add(new Date() + " a request to change the ticketprice failed");
                     System.out.println("Afvist - log ind først");
                 }
 		
 	}
 	public void nulstil() {
 		if (montørtilstand) {
-                        logg.add(new Date() + " a request to reset the machine was succesfull");
+                        //x.
+                        //logg.add(new Date() + " a request to reset the machine was succesfull");
 			antalBilletterSolgt = 0;
 		} else {
-                        logg.add(new Date() + " a request to reset the machine failed");
+                        //x.
+                        //logg.add(new Date() + " a request to reset the machine failed");
 			System.out.println("Afvist - log ind først");
 		}
 	}
 
 	public void setAntalBilletterSolgt(int antalBilletterSolgt) {
 		if (montørtilstand) {
-                        logg.add(new Date() + " an atempt to the amount of tickets sold was succesfull");
+                        //x.
+                        //logg.add(new Date() + " an atempt to the amount of tickets sold was succesfull");
 			this.antalBilletterSolgt = antalBilletterSolgt;
 		} else {
-                        logg.add(new Date() + " an atempt to the amount of tickets sold failed");
+                        //x.
+                        //logg.add(new Date() + " an atempt to the amount of tickets sold failed");
 			System.out.println("Afvist - log ind først");
 		}
 	}
@@ -167,21 +179,28 @@ public class Billetautomat {
 	public boolean erMontør() {
 		return montørtilstand;
 	}
-        public void printeLog() { 
-            for (Transactions log : Trans){
-                System.out.println(log);
-            }
-            /*
+        public void printeLog() {
             if (montørtilstand) {
                 System.out.print("========== log pr " + new Date() + "\n" );
-                for (String log : logg) {
+                for (Transactions log : Trans){
                     System.out.println(log);
-                }
-                System.out.println("==========");
+                }System.out.println("==========");
             } else {
                 System.out.println("Afvist - log ind først");
+                   }
             }
-*/    }
+        public void printLogsFrom() {
+            if (montørtilstand) {
+               
+                for (Transactions log : Trans){
+                    if(log.getDate().getTime() > (new Date().getTime()) - 60000) 
+                        System.out.println(log);
+                }
+                
+            } else {
+                System.out.println("Afvist - log ind først");
+                   }
+            }
         public void savelog(){
             
             if(montørtilstand){
@@ -192,9 +211,9 @@ public class Billetautomat {
                         PrintWriter file = new PrintWriter(fil);
                         
                         file.println("========== log pr " + new Date() + "\n");
-                        for (String var : logg){
-                            file.println(var);
-                            System.out.println(var);
+                        for (Transactions log : Trans){
+                            file.println(log);
+                            System.out.println(log);
                         }
 
                         file.close();
@@ -205,4 +224,16 @@ public class Billetautomat {
                  System.out.println("Afvist - log ind først");
                      }               
             }               
+        public void tjekMuligHvidvaskning(){
+            if (montørtilstand) {
+               
+                for (Transactions log : Trans){
+                    if(log.getAmount() > 500) 
+                        System.out.println(log);
+                }
+                
+            } else {
+                System.out.println("Afvist - log ind først");
+                   }
+            }
 }

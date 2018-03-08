@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package automat;
 
 import java.util.Date;
@@ -33,9 +28,9 @@ public class Transactions {
     }
     public String toString(){
         if (amount > 0){
-            return dato + " " + action + " " + amount; 
+            return dato + "-" + action + "-" + amount; 
         }else{
-            return dato + " " + action; 
+            return dato + "-" + action; 
         }
     }
     public Date getDate(){
@@ -45,5 +40,9 @@ public class Transactions {
     public int getAmount(){
         int a = amount;
         return a; 
+    }
+    public int numberOfTrans(){
+        int num = amountOfTransactions;
+        return num; 
     }
 }

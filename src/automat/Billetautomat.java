@@ -210,7 +210,6 @@ public class Billetautomat {
                         
                         PrintWriter file = new PrintWriter(fil);
                         
-                        file.println("========== log pr " + new Date() + "\n");
                         for (Transactions log : Trans){
                             file.println(log);
                             System.out.println(log);
@@ -228,7 +227,7 @@ public class Billetautomat {
             if (montørtilstand) {
                
                 for (Transactions log : Trans){
-                    if(log.getAmount() > 500) 
+                    if(log.getAmount() >= 500) 
                         System.out.println(log);
                 }
                 

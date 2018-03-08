@@ -30,6 +30,7 @@ public class BenytBilletautomat
                                 System.out.println("Press 15 for print log");
                                 System.out.println("Press 16 for saveing the log");
                                 System.out.println("Press 17 to print logs from (WIP)");
+                                System.out.println("Press 18 to tjek Mulig Hvidvaskning");
 			}
 			int valg = tastatur.nextInt();
 			tastatur.nextLine();
@@ -75,6 +76,9 @@ public class BenytBilletautomat
                             break; 
                         case 17: 
                             automat.printLogsFrom();
+                            break;
+                        case 18:
+                            automat.tjekMuligHvidvaskning();
                             break; 
                         default:
                             System.out.println("Ugyldigt valg, prøv igen");
